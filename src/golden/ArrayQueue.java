@@ -1,54 +1,66 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package golden;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
 
 /**
- *
+ * FIFO based Queue wrapper for Array List, Thread safe
  * @author samer
  */
 public class ArrayQueue implements Queue {
-
+    
+    /**
+     * Array list to hold strings
+     */
     private List array;
-    private int front;
-    private int back;
+    
+    /**
+     * Counter for items in array
+     */
     private int count;
-
+    
     public ArrayQueue() {
         this.array = new ArrayList<String>();
         this.count = 0;
-        this.front = 0;
-        this.back = -1;
     }
-
+    
+    /**
+     * Check if the queue is empty
+     * @return boolean
+     */
     public boolean isEmpty() {
         return this.count == 0;
     }
-
-    public synchronized void enqueue(String x) {
-            this.array.add(x);
-            //this.back = back + 1;
+    
+    /**
+     * Add item to the queue, Thread Safe by using synchronized block
+     * @param  str 
+     */
+    public  void enqueue(String str) {
+        synchronized(array){
+            this.array.add(str);
             this.count++;
-            notifyAll();
+            array.notifyAll();
+        }
     }
-
+    
+    /**
+     * Remove item from the queue, Thread Safe by using synchronized block
+     * @return String
+     * @throws InterruptedException 
+     */
     public  String dequeue() throws InterruptedException {
             while(isEmpty()){
                 wait();
             }
-            String x;
+            String str;
             synchronized (array) {
-                 x= (String) this.array.get(0);
+                 str= (String) this.array.get(0);
                 this.array.remove(0);
-                //this.front = (front + 1);
                 this.count--;
             }
-            return x;
+            return str;
 
     }
 
