@@ -32,7 +32,7 @@ public class ArrayQueue implements Queue {
 
     public synchronized void enqueue(String x) {
             this.array.add(x);
-            this.back = back + 1;
+            //this.back = back + 1;
             this.count++;
             notifyAll();
     }
@@ -41,9 +41,9 @@ public class ArrayQueue implements Queue {
             while(isEmpty()){
                 wait();
             }
-            String x = (String) this.array.get(this.front);
+            String x = (String) this.array.get(0);
             this.array.remove(0);
-            this.front = (front + 1);
+            //this.front = (front + 1);
             this.count--;
             notifyAll();
             return x;

@@ -32,7 +32,7 @@ public class ReaderThread implements Runnable {
                 
                 try {
                     System.out.println(Thread.currentThread().getName() + ": " + ctx.remove());
-                    Thread.sleep(750);
+                    Thread.sleep(2000);
                 } catch (Exception e) {
                 }
 
