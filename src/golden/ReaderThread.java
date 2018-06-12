@@ -28,20 +28,16 @@ public class ReaderThread implements Runnable {
 
     public void read() throws InterruptedException {
         while (true) {
-            synchronized (ctx) {
-                while (ctx.isEmpty()) {
-                    ctx.wait();
-                }
+            
+                
                 try {
                     System.out.println(Thread.currentThread().getName() + ": " + ctx.remove());
-                    
-                    ctx.notify();
                     Thread.sleep(750);
                 } catch (Exception e) {
                 }
 
             }
-        }
+        
     }
 
 //        while (!ctx.isEmpty()) {

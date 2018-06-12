@@ -30,18 +30,22 @@ public class ArrayQueue implements Queue {
         return this.count == 0;
     }
 
-    public void enqueue(String x) {
+    public synchronized void enqueue(String x) {
             this.array.add(x);
             this.back = back + 1;
             this.count++;
+            notifyAll();
     }
 
-    public String dequeue() throws InterruptedException {
-       
+    public synchronized String dequeue() throws InterruptedException {
+            while(isEmpty()){
+                wait();
+            }
             String x = (String) this.array.get(this.front);
-            this.array.remove(this.front);
+            //this.array.remove(this.front);
             this.front = (front + 1);
             this.count--;
+            notifyAll();
             return x;
         
     }
