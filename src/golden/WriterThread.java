@@ -27,7 +27,7 @@ public class WriterThread implements Runnable {
         }
     }
 
-    static synchronized void incrementCounter() {
+    static void incrementCounter() {
         //System.out.println(Thread.currentThread().getName() + ": " + counter);
         counter = counter + 1;
     }
@@ -37,7 +37,7 @@ public class WriterThread implements Runnable {
                 try {
                     incrementCounter();
                     ctx.add("item" + counter);
-                    Thread.sleep(1000);
+                    Thread.sleep(10);
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }

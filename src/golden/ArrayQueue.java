@@ -37,17 +37,19 @@ public class ArrayQueue implements Queue {
             notifyAll();
     }
 
-    public synchronized String dequeue() throws InterruptedException {
+    public  String dequeue() throws InterruptedException {
             while(isEmpty()){
                 wait();
             }
-            String x = (String) this.array.get(0);
-            this.array.remove(0);
-            //this.front = (front + 1);
-            this.count--;
-            notifyAll();
+            String x;
+            synchronized (array) {
+                 x= (String) this.array.get(0);
+                this.array.remove(0);
+                //this.front = (front + 1);
+                this.count--;
+            }
             return x;
-        
+
     }
 
 }
