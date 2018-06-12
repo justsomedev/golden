@@ -28,11 +28,9 @@ public class ReaderThread implements Runnable {
 
     public void read() throws InterruptedException {
         while (true) {
-            
-                
                 try {
                     System.out.println(Thread.currentThread().getName() + ": " + ctx.remove());
-                    Thread.sleep(2000);
+                    Thread.sleep(50);
                 } catch (Exception e) {
                 }
 
