@@ -42,7 +42,7 @@ public class ArrayQueue implements Queue {
                 wait();
             }
             String x = (String) this.array.get(this.front);
-            //this.array.remove(this.front);
+            this.array.remove(0);
             this.front = (front + 1);
             this.count--;
             notifyAll();
