@@ -37,7 +37,7 @@ public class WriterThread implements Runnable {
                 try {
                     incrementCounter();
                     ctx.add("item" + counter);
-                    Thread.sleep(1000);
+                    Thread.sleep(10);
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
