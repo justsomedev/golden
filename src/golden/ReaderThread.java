@@ -27,17 +27,19 @@ public class ReaderThread implements Runnable {
     }
 
     public void read() throws InterruptedException {
-        synchronized (ctx) {
-            while (ctx.isEmpty()) {
-                ctx.wait();
-            }
-
-            while (true) {
+        while (true) {
+            synchronized (ctx) {
+                while (ctx.isEmpty()) {
+                    ctx.wait();
+                }
                 try {
                     System.out.println(Thread.currentThread().getName() + ": " + ctx.remove());
-                    Thread.sleep(750);
+                    
                     ctx.notify();
-                } catch (Exception e) {}
+                    Thread.sleep(750);
+                } catch (Exception e) {
+                }
+
             }
         }
     }

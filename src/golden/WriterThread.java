@@ -5,7 +5,6 @@
  */
 package golden;
 
-
 /**
  *
  * @author samer
@@ -34,16 +33,19 @@ public class WriterThread implements Runnable {
     }
 
     public void write() throws InterruptedException {
-        synchronized(ctx){
-            try {
-                incrementCounter();
-                ctx.add("item" + counter);
-                //System.out.println("Pro: item" + counter);
-                Thread.sleep(1000);
-                ctx.notifyAll();
-                
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
+        while (true) {
+            synchronized (ctx) {
+
+                try {
+                    incrementCounter();
+                    ctx.add("item" + counter);
+                    //System.out.println("Pro: item" + counter);
+
+                    ctx.notifyAll();
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }
     }
