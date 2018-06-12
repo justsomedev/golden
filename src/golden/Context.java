@@ -5,16 +5,12 @@
  */
 package golden;
 
-import java.util.concurrent.Semaphore;
-
 /**
  *
  * @author samer
  */
 public class Context {
 
-    public static Semaphore sem = new Semaphore(0);
-    public static Semaphore mutex = new Semaphore(1);
     private Queue queue;
 
     /**

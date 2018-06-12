@@ -27,20 +27,19 @@ public class ReaderThread implements Runnable {
     }
 
     public void read() throws InterruptedException {
-        while (!Thread.currentThread().isInterrupted()) {
-            try {
-                ctx.sem.acquire(1);
-                ctx.mutex.acquire();
-                System.out.println(Thread.currentThread().getName() + ": " + ctx.remove());
-                ctx.mutex.release();
-                Thread.sleep(750);
-            } catch (InterruptedException ie) {
-                Thread.currentThread().interrupt();
+        synchronized (ctx) {
+            while (ctx.isEmpty()) {
+                ctx.wait();
             }
 
-            //@todo here adding rand from 500 - 2000 ms      
+            while (true) {
+                try {
+                    System.out.println(Thread.currentThread().getName() + ": " + ctx.remove());
+                    Thread.sleep(750);
+                    ctx.notify();
+                } catch (Exception e) {}
+            }
         }
-
     }
 
 //        while (!ctx.isEmpty()) {

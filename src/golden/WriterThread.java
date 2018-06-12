@@ -34,33 +34,17 @@ public class WriterThread implements Runnable {
     }
 
     public void write() throws InterruptedException {
-        try {
-            while (true) {
-                ctx.mutex.acquire();
+        synchronized(ctx){
+            try {
                 incrementCounter();
-                this.ctx.add("item" + counter);
-                ctx.mutex.release();
-                ctx.sem.release(1);
+                ctx.add("item" + counter);
+                //System.out.println("Pro: item" + counter);
                 Thread.sleep(1000);
+                ctx.notifyAll();
+                
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
             }
-        }catch (InterruptedException ie) {
-            Thread.currentThread().interrupt();
         }
-
-        //System.out.println("Pro: item" + counter);
-        
-
-//        synchronized(ctx){
-//            try {
-//                incrementCounter();
-//                this.ctx.add("item" + counter);
-//                //System.out.println("Pro: item" + counter);
-//                Thread.sleep(1000);
-//                ctx.notifyAll();
-//                
-//            } catch (InterruptedException ex) {
-//                Thread.currentThread().interrupt();
-//            }
-//        }
     }
 }

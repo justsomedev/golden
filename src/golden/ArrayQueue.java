@@ -20,7 +20,7 @@ public class ArrayQueue implements Queue {
     private int count;
 
     public ArrayQueue() {
-        this.array = Collections.synchronizedList(new ArrayList<String>());
+        this.array = new ArrayList<String>();
         this.count = 0;
         this.front = 0;
         this.back = -1;
@@ -31,12 +31,9 @@ public class ArrayQueue implements Queue {
     }
 
     public void enqueue(String x) {
-        
             this.array.add(x);
             this.back = back + 1;
             this.count++;
-            
-        
     }
 
     public String dequeue() throws InterruptedException {
