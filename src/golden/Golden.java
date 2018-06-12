@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package golden;
+
 
 /**
  *
@@ -23,11 +20,13 @@ public class Golden {
             Thread wt = new Thread(new WriterThread(ctx));
             wt.start();
             
-            Thread rt = new Thread(new ReaderThread(ctx));
-            rt.start();
+            Thread t1 = new Thread(new ReaderThread(ctx));
+            t1.setName("t1");
+            t1.start();
             
-            Thread rt1 = new Thread(new ReaderThread(ctx));
-            rt1.start();
+            Thread t2 = new Thread(new ReaderThread(ctx));
+            t2.setName("t2");
+            t2.start();
             
             
         } catch (Exception e) {
